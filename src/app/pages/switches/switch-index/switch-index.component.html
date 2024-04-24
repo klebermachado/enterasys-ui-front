@@ -1,0 +1,25 @@
+<ul class="flex justify-between mb-6 bg-secondary-100 rounded-3xl max-w-lg mx-auto text-sm sm:text-base">
+	<li>
+		<a routerLink="/switches/{{id}}/vlans"
+			class="px-4 sm:px-6 py-1 h-full hover:bg-secondary-200 rounded-3xl inline-block"
+			:class="{ 'bg-secondary-300': isActiveLink('vlan')}">VLANS</a>
+	</li>
+	<li>
+		<a routerLink="/switches/{{id}}/ports"
+			class="px-4 sm:px-6 py-1 h-full hover:bg-secondary-200 rounded-3xl inline-block"
+			:class="{ 'bg-secondary-300': isActiveLink('ports')}">Ports</a>
+	</li>
+	<li>
+		<a routerLink="/switches/{{id}}/config"
+			class="px-4 sm:px-6 py-1 h-full hover:bg-secondary-200 rounded-3xl inline-block"
+			:class="{ 'bg-secondary-300': isActiveLink('config')}">Config</a>
+	</li>
+	<li>
+		<a routerLink="/switches/{{id}}/backup"
+			class="px-4 sm:px-6 py-1 h-full hover:bg-secondary-200 rounded-3xl inline-block"
+			:class="{ 'bg-secondary-300': isActiveLink('backup')}">Backup</a>
+	</li>
+</ul>
+<div>
+	<router-outlet></router-outlet>
+</div>
