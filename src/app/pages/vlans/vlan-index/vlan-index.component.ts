@@ -1,29 +1,51 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { generateRandomID } from '../../../helpers/utils';
 import { VlansService } from '../../../services/vlans.service';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-vlan-index',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './vlan-index.component.html',
   styleUrl: './vlan-index.component.css',
 })
-export class VlanIndexComponent {
+export class VlanIndexComponent implements OnInit {
   private vlanService = inject(VlansService);
-  vlans = this.vlanService.getVlans();
+  vlans: any[] = [];
   generateRanndomID = generateRandomID;
 
   isLoading = false;
   spinnerDelete?: number;
 
-  save() {
-    console.log('Save');
-    this.isLoading = true;
+  form = new FormGroup({
+    tag: new FormControl(''),
+    description: new FormControl(''),
+  });
+
+  async ngOnInit(): Promise<void> {
+    this.vlans = await this.vlanService.getVlans();
   }
 
-  delete(id: number) {
+  async save() {
+    try {
+      this.isLoading = true;
+      await this.vlanService.store(this.form.value);
+      this.vlans = await this.vlanService.getVlans();
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async delete(id: number) {
     this.spinnerDelete = id;
-    console.log('deletando');
+    await this.vlanService.delete(id);
+    this.vlans = await this.vlanService.getVlans();
+    this.spinnerDelete = undefined;
   }
 }
