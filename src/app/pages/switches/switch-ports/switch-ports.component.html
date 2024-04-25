@@ -1,11 +1,11 @@
 <div class="flex gap-3 flex-wrap bg-secondary-50 p-4 rounded-md border">
 	<div class="w-full mb-6">
-		<h2 class="text-lg font-bold">Switch A (10.0.0.3 - swa.infra.domain)</h2>
-		<p class="text-xs text-gray-600">Sala de telecomunicações do Pavilhão de aulas</p>
+		<h2 class="text-lg font-bold">{{sw?.name}} ({{sw?.ip}} - {{sw?.hostname}})</h2>
+		<p class="text-xs text-gray-600">{{sw?.location}}</p>
 	</div>
-	@for(port of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]; track $index) {
+	@for(port of sw?.ports; track $index) {
 	<div class="h-14 w-16 border relative mt-4 mb-6 bg-white">
-		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">ge.1.{{port}}</p>
+		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">{{port.slug}}</p>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 left-0 absolute"></div>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 right-0 absolute animate-background"></div>
 		<div class="flex justify-center gap-1 absolute bottom-0 left-0 right-0">
@@ -42,29 +42,29 @@
 				</tr>
 			</thead>
 			<tbody>
-				@for(port of [1,2,3,4,5,6,7,8,9]; track $index) {
+				@for(port of sw?.ports; track $index) {
 				<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						ge.1.{{port}}
+						{{port.slug}}
 					</th>
 					<td class="px-6 py-4">
-						@if (editId === port) {
+						@if (editId === port.id) {
 						<input type="text" formControlName="alias" id="switch-name" name="name"
 							aria-describedby="helper-text-explanation"
 							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							value="RCPPAP17">
+							[value]="port.alias">
 						} @else {
-						<span>RCPPAP17</span>
+						<span>{{port.alias}}</span>
 						}
 					</td>
 					<td class="px-6 py-4">
-						@if (editId === port) {
+						@if (editId === port.id) {
 						<input type="text" formControlName="description" id="switch-name" name="name"
 							aria-describedby="helper-text-explanation"
 							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							value="Rádio wireless convivência">
+							[value]="port.description">
 						} @else {
-						<span>Rádio wireless convivência</span>
+						<span>{{port.description}}</span>
 						}
 					</td>
 					<td class="px-6 py-4">

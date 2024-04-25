@@ -23,6 +23,16 @@ export class SwitchesService {
     });
   }
 
+  async find(id: number) {
+    return new Promise((resolve) => {
+      return this.http
+        .get(`${environment.apiUrl}/switches/${id}`)
+        .subscribe((response) => {
+          resolve(response);
+        });
+    });
+  }
+
   async store(sw: any) {
     return new Promise((resolve) => {
       return this.http

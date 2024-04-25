@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -9,5 +9,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './switch-index.component.css',
 })
 export class SwitchIndexComponent {
-  id: number = 2;
+  @Input('id') switchId!: number;
 }
