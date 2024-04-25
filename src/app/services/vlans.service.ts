@@ -1,16 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VlansService {
-  constructor(private http: HttpClient) {}
+  vlans = signal<any[]>([]);
+  constructor(private http: HttpClient) {
+    this.getVlans();
+  }
 
   getVlans(): Promise<any[]> {
     return new Promise((resolve) => {
       this.http.get(`${environment.apiUrl}/vlans`).subscribe((data: any) => {
+        this.vlans.set(data);
         resolve(data);
       });
     });
@@ -19,6 +23,7 @@ export class VlansService {
   async store(vlan: any) {
     return new Promise((resolve) => {
       this.http.post(`${environment.apiUrl}/vlans`, vlan).subscribe((data) => {
+        this.getVlans();
         resolve(data);
       });
     });
@@ -29,6 +34,7 @@ export class VlansService {
       this.http
         .delete(`${environment.apiUrl}/vlans/${id}`)
         .subscribe((data) => {
+          this.getVlans();
           resolve(data);
         });
     });

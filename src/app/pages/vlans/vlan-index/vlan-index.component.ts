@@ -7,6 +7,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vlan-index',
@@ -17,6 +18,8 @@ import {
 })
 export class VlanIndexComponent implements OnInit {
   private vlanService = inject(VlansService);
+  private toastr = inject(ToastrService);
+
   vlans: any[] = [];
   generateRanndomID = generateRandomID;
 
@@ -37,6 +40,8 @@ export class VlanIndexComponent implements OnInit {
       this.isLoading = true;
       await this.vlanService.store(this.form.value);
       this.vlans = await this.vlanService.getVlans();
+      this.form.reset();
+      this.toastr.success('VLAN created successfully');
     } finally {
       this.isLoading = false;
     }
