@@ -5,7 +5,7 @@
 	</div>
 	@for(port of sw?.ports; track $index) {
 	<div class="h-14 w-16 border relative mt-4 mb-6 bg-white">
-		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">{{port.slug}}</p>
+		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">{{port.port_name}}</p>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 left-0 absolute"></div>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 right-0 absolute animate-background"></div>
 		<div class="flex justify-center gap-1 absolute bottom-0 left-0 right-0">
@@ -45,7 +45,7 @@
 				@for(port of sw?.ports; track $index) {
 				<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						{{port.slug}}
+						{{port.port_name}}
 					</th>
 					<td class="px-6 py-4">
 						@if (editId === port.id) {
