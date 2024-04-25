@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes changeBackground {
+  0% {
+    background-color: #a8e698;
+  }
+  100% {
+    background-color: #69dd4c;
+  }
+}
+
+.animate-background {
+  animation: changeBackground 200ms infinite;
+}
