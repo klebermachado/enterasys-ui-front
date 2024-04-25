@@ -29,6 +29,11 @@ export const routes: Routes = [
     component: SwitchIndexComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'vlans',
+        pathMatch: 'full',
+      },
+      {
         path: 'vlans',
         title: 'Switch',
         component: SwitchVlansComponent,
