@@ -30,7 +30,10 @@ export class SwitchPortsComponent implements OnInit {
   }
 
   editPort(port: number) {
-    this.form.reset();
+    this.form.patchValue({
+      alias: this.sw.ports.find((p: any) => p.id === port).alias,
+      description: this.sw.ports.find((p: any) => p.id === port).description,
+    });
     this.editId = port;
   }
 
