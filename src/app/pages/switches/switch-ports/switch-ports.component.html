@@ -3,18 +3,23 @@
 		<h2 class="text-lg font-bold">{{sw?.name}} ({{sw?.ip}} - {{sw?.hostname}})</h2>
 		<p class="text-xs text-gray-600">{{sw?.location}}</p>
 	</div>
-	@for(port of sw?.ports; track $index) {
+	@for(port of portStatus; track $index) {
 	<div class="h-14 w-16 border relative mt-4 mb-6 bg-white">
 		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">{{port.portName}}</p>
+		@if (port.operationStatus === 'Up') {
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 left-0 absolute"></div>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 right-0 absolute animate-background"></div>
+		} @else {
+		<div class="h-2 w-2 bg-[#c0c0c0] top-0 left-0 absolute"></div>
+		<div class="h-2 w-2 bg-[#c0c0c0] top-0 right-0 absolute"></div>}
 		<div class="flex justify-center gap-1 absolute bottom-0 left-0 right-0">
 			@for(contact of [1,1,1,1,1,1,1,1]; track $index) {
 			<div class="w-[1px] bg-yellow-400 h-4"></div>
 			}
 		</div>
-		<button type="button" class="-bottom-6 left-0 right-0 absolute text-center text-green-600 font-bold">UP</button>
-		<p class="w-full text-center text-gray-500 mt-3 text-xs">1.0G</p>
+		<button type="button" (click)="togglePort(port.portName)"
+			class="-bottom-6 left-0 right-0 absolute text-center text-green-600 font-bold uppercase">{{port.adminStatus}}</button>
+		<p class="w-full text-center text-gray-500 mt-3 text-xs">{{port.speed}}</p>
 	</div>
 	}
 </div>

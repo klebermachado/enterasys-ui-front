@@ -53,4 +53,14 @@ export class SwitchesService {
         });
     });
   }
+
+  async showPortStatus(switchId: number): Promise<any[]> {
+    return new Promise((resolve) => {
+      this.http
+        .get(`${environment.apiUrl}/switches/${switchId}/ports/status`)
+        .subscribe((response) => {
+          resolve(response as any[]);
+        });
+    });
+  }
 }

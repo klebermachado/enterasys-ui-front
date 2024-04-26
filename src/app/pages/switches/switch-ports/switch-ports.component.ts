@@ -16,6 +16,8 @@ export class SwitchPortsComponent implements OnInit {
   private switchService = inject(SwitchesService);
 
   sw: any;
+  portStatus: any[] = [];
+
   loadingSave: undefined | number = undefined;
   form = new FormGroup({
     alias: new FormControl(''),
@@ -25,8 +27,12 @@ export class SwitchPortsComponent implements OnInit {
   editId?: number;
 
   async ngOnInit(): Promise<void> {
-    const sw = await this.switchService.find(this.switchId);
-    this.sw = sw;
+    this.switchService.find(this.switchId).then((sw) => {
+      this.sw = sw;
+    });
+    this.switchService.showPortStatus(this.switchId).then((portStatus) => {
+      this.portStatus = portStatus;
+    });
   }
 
   editPort(port: number) {
@@ -50,5 +56,9 @@ export class SwitchPortsComponent implements OnInit {
       this.loadingSave = undefined;
     }
     this.editId = undefined;
+  }
+
+  async togglePort(port: number) {
+    console.log(port);
   }
 }
