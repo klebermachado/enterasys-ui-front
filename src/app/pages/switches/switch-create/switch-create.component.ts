@@ -29,8 +29,8 @@ export class SwitchCreateComponent {
 
   async save() {
     this.loading = true;
-    console.log(this.loading);
     const sw: any = await this.switchService.store(this.form.value);
+    console.log(sw);
     this.toastr.success('Switch created successfully');
     this.form.reset();
     this.loading = false;

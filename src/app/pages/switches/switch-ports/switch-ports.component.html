@@ -5,7 +5,7 @@
 	</div>
 	@for(port of sw?.ports; track $index) {
 	<div class="h-14 w-16 border relative mt-4 mb-6 bg-white">
-		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">{{port.port_name}}</p>
+		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">{{port.portName}}</p>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 left-0 absolute"></div>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 right-0 absolute animate-background"></div>
 		<div class="flex justify-center gap-1 absolute bottom-0 left-0 right-0">
@@ -24,65 +24,67 @@
 		<p class="text-xs text-gray-600">Sala de telecomunicações do Pavilhão de aulas</p>
 	</div>
 	<div class="relative overflow-x-auto w-full">
-		<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-				<tr>
-					<th scope="col" class="px-6 py-3">
-						Port name
-					</th>
-					<th scope="col" class="px-6 py-3">
-						Binded to
-					</th>
-					<th scope="col" class="px-6 py-3">
-						Description
-					</th>
-					<th scope="col" class="px-6 py-3">
-						Actions
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				@for(port of sw?.ports; track $index) {
-				<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						{{port.port_name}}
-					</th>
-					<td class="px-6 py-4">
-						@if (editId === port.id) {
-						<input type="text" formControlName="alias" id="switch-name" name="name"
-							aria-describedby="helper-text-explanation"
-							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							[value]="port.alias">
-						} @else {
-						<span>{{port.alias}}</span>
-						}
-					</td>
-					<td class="px-6 py-4">
-						@if (editId === port.id) {
-						<input type="text" formControlName="description" id="switch-name" name="name"
-							aria-describedby="helper-text-explanation"
-							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							[value]="port.description">
-						} @else {
-						<span>{{port.description}}</span>
-						}
-					</td>
-					<td class="px-6 py-4">
-						@if (editId === port) {
-						<button type="button" (click)="update(port)"
-							class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-							Save
-						</button>
-						} @else {
-						<button type="button" (click)="editPort(port)"
-							class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-							Edit
-						</button>
-						}
-					</td>
-				</tr>
-				}
-			</tbody>
-		</table>
+		<form [formGroup]="form">
+			<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+				<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+						<th scope="col" class="px-6 py-3">
+							Port name
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Binded to
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Description
+						</th>
+						<th scope="col" class="px-6 py-3">
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(port of sw?.ports; track $index) {
+					<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+						<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							{{port.portName}}
+						</th>
+						<td class="px-6 py-4">
+							@if (editId === port.id) {
+							<input type="text" formControlName="alias" id="switch-name" name="name"
+								aria-describedby="helper-text-explanation"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								[value]="port.alias">
+							} @else {
+							<span>{{port.alias}}</span>
+							}
+						</td>
+						<td class="px-6 py-4">
+							@if (editId === port.id) {
+							<input type="text" formControlName="description" id="switch-name" name="name"
+								aria-describedby="helper-text-explanation"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								[value]="port.description">
+							} @else {
+							<span>{{port.description}}</span>
+							}
+						</td>
+						<td class="px-6 py-4">
+							@if (editId === port.id) {
+							<button type="button" (click)="update(port.id)"
+								class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+								<app-spinner [loading]="loadingSave === port.id">Save</app-spinner>
+							</button>
+							} @else {
+							<button type="button" (click)="editPort(port.id)"
+								class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+								Edit
+							</button>
+							}
+						</td>
+					</tr>
+					}
+				</tbody>
+			</table>
+		</form>
 	</div>
 </div>

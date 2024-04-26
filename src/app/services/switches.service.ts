@@ -43,4 +43,14 @@ export class SwitchesService {
         });
     });
   }
+
+  async updatePort(switchId: number, dataPort: any): Promise<any> {
+    return new Promise((resolve) => {
+      this.http
+        .put(`${environment.apiUrl}/switches/${switchId}/ports`, dataPort)
+        .subscribe((response) => {
+          resolve(response);
+        });
+    });
+  }
 }
