@@ -1,4 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { generateRandomID } from '../../../helpers/utils';
 import { VlansService } from '../../../services/vlans.service';
 import {
@@ -20,6 +26,8 @@ export class VlanIndexComponent implements OnInit {
   private vlanService = inject(VlansService);
   private toastr = inject(ToastrService);
 
+  @ViewChild('tagInput') tagInput!: ElementRef<HTMLInputElement>;
+
   vlans: any[] = [];
   generateRanndomID = generateRandomID;
 
@@ -33,6 +41,9 @@ export class VlanIndexComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.vlans = await this.vlanService.getVlans();
+    setTimeout(() => {
+      this.tagInput.nativeElement.focus();
+    }, 1000);
   }
 
   async save() {
@@ -41,6 +52,7 @@ export class VlanIndexComponent implements OnInit {
       await this.vlanService.store(this.form.value);
       this.vlans = await this.vlanService.getVlans();
       this.form.reset();
+      this.tagInput.nativeElement.focus();
       this.toastr.success('VLAN created successfully');
     } finally {
       this.isLoading = false;
