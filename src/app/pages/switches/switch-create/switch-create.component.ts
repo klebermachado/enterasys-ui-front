@@ -4,11 +4,12 @@ import { SwitchesService } from '../../../services/switches.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
+import { SpinnerDirective } from '../../../shared/directive/spinner.directive';
 
 @Component({
   selector: 'app-switch-create',
   standalone: true,
-  imports: [ReactiveFormsModule, SpinnerComponent],
+  imports: [ReactiveFormsModule, SpinnerComponent, SpinnerDirective],
   templateUrl: './switch-create.component.html',
   styleUrl: './switch-create.component.css',
 })

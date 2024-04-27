@@ -14,11 +14,12 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SpinnerDirective } from '../../../shared/directive/spinner.directive';
 
 @Component({
   selector: 'app-vlan-index',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, SpinnerDirective],
   templateUrl: './vlan-index.component.html',
   styleUrl: './vlan-index.component.css',
 })
