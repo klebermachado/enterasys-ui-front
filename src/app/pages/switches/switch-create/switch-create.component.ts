@@ -28,12 +28,16 @@ export class SwitchCreateComponent {
   });
 
   async save() {
-    this.loading = true;
-    const sw: any = await this.switchService.store(this.form.value);
-    console.log(sw);
-    this.toastr.success('Switch created successfully');
-    this.form.reset();
-    this.loading = false;
-    this.router.navigate(['/switches', sw.id]);
+    try {
+      this.loading = true;
+      const sw: any = await this.switchService.store(this.form.value);
+      this.toastr.success('Switch created successfully');
+      this.form.reset();
+      this.router.navigate(['/switches', sw.id]);
+    } catch (error: any) {
+      this.toastr.error(error);
+    } finally {
+      this.loading = false;
+    }
   }
 }

@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,9 +35,15 @@ export class SwitchesService {
   }
 
   async store(sw: any) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       return this.http
         .post(`${environment.apiUrl}/switches`, sw)
+        .pipe(
+          catchError((error: any) => {
+            reject('Switch unreachable');
+            return throwError(() => new Error('Switch unreachable'));
+          })
+        )
         .subscribe((response) => {
           resolve(response);
           this.getAll();
