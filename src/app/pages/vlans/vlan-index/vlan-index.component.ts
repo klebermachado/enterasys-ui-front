@@ -55,6 +55,8 @@ export class VlanIndexComponent implements OnInit {
       this.form.reset();
       this.tagInput.nativeElement.focus();
       this.toastr.success('VLAN created successfully');
+    } catch (error: any) {
+      this.toastr.error(error);
     } finally {
       this.isLoading = false;
     }
