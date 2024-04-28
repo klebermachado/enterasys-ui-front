@@ -42,8 +42,8 @@ export class SpinnerDirective {
 
   ngOnChanges(change: any) {
     if (change?.loadingText?.firstChange) {
-      this.setOriginalText();
-      this.setReplaceText();
+      this.getOriginalText();
+      this.getReplaceText();
     }
 
     if (change.appSpinner.currentValue === true) {
@@ -57,12 +57,12 @@ export class SpinnerDirective {
     }
   }
 
-  setOriginalText() {
+  getOriginalText() {
     const content = this.el.nativeElement.innerHTML;
     this.originalText = content;
   }
 
-  setReplaceText() {
+  getReplaceText() {
     if (!this.loadingText) {
       this.replaceText = this.el.nativeElement.innerHTML;
     } else {

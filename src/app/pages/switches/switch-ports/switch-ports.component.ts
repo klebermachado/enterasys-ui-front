@@ -2,11 +2,18 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { SwitchesService } from '../../../services/switches.service';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { SpinnerDirective } from '../../../shared/directive/spinner.directive';
 
 @Component({
   selector: 'app-switch-ports',
   standalone: true,
-  imports: [SpinnerComponent, ReactiveFormsModule],
+  imports: [
+    SpinnerComponent,
+    ReactiveFormsModule,
+    SvgIconComponent,
+    SpinnerDirective,
+  ],
   templateUrl: './switch-ports.component.html',
   styleUrl: './switch-ports.component.css',
 })
@@ -19,6 +26,9 @@ export class SwitchPortsComponent implements OnInit {
   portStatus: any[] = [];
 
   loadingSave: undefined | number = undefined;
+  loadingPortStatus = false;
+  loadingPortAlias = false;
+
   form = new FormGroup({
     alias: new FormControl(''),
     description: new FormControl(''),
@@ -56,6 +66,23 @@ export class SwitchPortsComponent implements OnInit {
       this.loadingSave = undefined;
     }
     this.editId = undefined;
+  }
+
+  async updatePortStatus() {
+    try {
+      this.loadingPortStatus = true;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    } finally {
+      this.loadingPortStatus = false;
+    }
+  }
+  async updatePortAlias() {
+    try {
+      this.loadingPortAlias = true;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    } finally {
+      this.loadingPortAlias = false;
+    }
   }
 
   async togglePort(port: number) {

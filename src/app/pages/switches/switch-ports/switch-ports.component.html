@@ -1,7 +1,14 @@
 <div class="flex gap-3 flex-wrap bg-secondary-50 p-4 rounded-md border">
-	<div class="w-full mb-6">
-		<h2 class="text-lg font-bold">{{sw?.name}} ({{sw?.ip}} - {{sw?.hostname}})</h2>
-		<p class="text-xs text-gray-600">{{sw?.location}}</p>
+	<div class="w-full mb-6 flex justify-between">
+		<div>
+			<h2 class="text-lg font-bold">{{sw?.name}} ({{sw?.ip}} - {{sw?.hostname}})</h2>
+			<p class="text-xs text-gray-600">{{sw?.location}}</p>
+		</div>
+		<div class="flex items-center gap-x-2 hover:text-blue-800 hover:underline cursor-pointer"
+			(click)="updatePortStatus()">
+			<span class="pr-0" [appSpinner]="loadingPortStatus" loadingText="looking for update">Última atualização</span>
+			<svg-icon src="assets/icons/history.svg" svgClass="w-4 fill-current"></svg-icon>
+		</div>
 	</div>
 	@for(port of portStatus; track $index) {
 	<div class="h-14 w-16 border relative mt-4 mb-6 bg-white">
@@ -24,9 +31,16 @@
 	}
 </div>
 <div class="flex gap-3 flex-wrap bg-secondary-50 p-4 rounded-md border mt-4">
-	<div class="w-full mb-6">
-		<h2 class="text-lg font-bold">Details</h2>
-		<p class="text-xs text-gray-600">Sala de telecomunicações do Pavilhão de aulas</p>
+	<div class="w-full mb-6 flex justify-between">
+		<div>
+			<h2 class="text-lg font-bold">Details</h2>
+			<p class="text-xs text-gray-600">Sala de telecomunicações do Pavilhão de aulas</p>
+		</div>
+		<div class="flex items-center gap-x-2 hover:text-blue-800 hover:underline cursor-pointer"
+			(click)="updatePortAlias()">
+			<span class="pr-0" [appSpinner]="loadingPortAlias" loadingText="looking for update">Última atualização</span>
+			<svg-icon src="assets/icons/history.svg" svgClass="w-4 fill-current"></svg-icon>
+		</div>
 	</div>
 	<div class="relative overflow-x-auto w-full">
 		<form [formGroup]="form">
