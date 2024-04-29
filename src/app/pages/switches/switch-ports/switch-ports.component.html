@@ -6,9 +6,10 @@
 			</h2>
 			<p class="text-xs text-gray-600">{{ sw?.location }}</p>
 		</div>
-		<div class="flex items-center gap-x-2 hover:text-blue-800 hover:underline cursor-pointer"
+		<div class="flex items-center justify-end gap-x-2 hover:text-blue-800 hover:underline cursor-pointer relative min-w-36"
 				 (click)="updatePortStatus()">
-			<span class="pr-0" [appSpinner]="loadingPortStatus" loadingText="looking for update">Última atualização</span>
+			<span class="pr-0" [appSpinner]="loadingPortStatus" loadingText="looking for update">Sync</span>
+			<span class="text-gray-500 text-xs absolute -bottom-3 right-0">updated 2023-01-02 13:33 </span>
 			<svg-icon src="assets/icons/history.svg" svgClass="w-4 fill-current"></svg-icon>
 		</div>
 	</div>
@@ -52,9 +53,10 @@
 				Sala de telecomunicações do Pavilhão de aulas
 			</p>
 		</div>
-		<div class="flex items-center gap-x-2 hover:text-blue-800 hover:underline cursor-pointer"
+		<div class="flex items-center justify-end gap-x-2 hover:text-blue-800 hover:underline cursor-pointer relative min-w-36"
 				 (click)="updatePortAlias()">
-			<span class="pr-0" [appSpinner]="loadingPortAlias" loadingText="looking for update">Última atualização</span>
+			<span class="pr-0" [appSpinner]="loadingPortAlias" loadingText="looking for update">Sync</span>
+			<span class="text-gray-500 text-xs absolute -bottom-2 right-0">updated 2023-01-02 13:33 </span>
 			<svg-icon src="assets/icons/history.svg" svgClass="w-4 fill-current"></svg-icon>
 		</div>
 	</div>

@@ -89,4 +89,6 @@ export class SwitchesService {
         });
     });
   }
+
+  async syncPorts(switchId: number) {}
 }

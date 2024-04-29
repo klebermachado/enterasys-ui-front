@@ -76,7 +76,9 @@ export class SwitchPortsComponent implements OnInit {
   async updatePortStatus() {
     try {
       this.loadingPortStatus = true;
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      this.portStatus = await this.switchService.showPortStatus(this.switchId);
+    } catch (error: any) {
+      this.toastr.error(error);
     } finally {
       this.loadingPortStatus = false;
     }
@@ -84,7 +86,7 @@ export class SwitchPortsComponent implements OnInit {
   async updatePortAlias() {
     try {
       this.loadingPortAlias = true;
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      this.sw = await this.switchService.syncPorts(this.switchId);
     } finally {
       this.loadingPortAlias = false;
     }
@@ -101,7 +103,6 @@ export class SwitchPortsComponent implements OnInit {
         portName,
         toggle
       );
-      console.log(portStatus);
       this.portStatus = this.portStatus.map((p) =>
         p.portName === portName ? portStatusResponse : p
       );
