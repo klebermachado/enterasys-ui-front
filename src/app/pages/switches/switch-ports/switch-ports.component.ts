@@ -4,6 +4,8 @@ import { SpinnerComponent } from '../../../shared/components/spinner/spinner.com
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { SpinnerDirective } from '../../../shared/directive/spinner.directive';
+import { ToastrService } from 'ngx-toastr';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-switch-ports',
@@ -13,6 +15,7 @@ import { SpinnerDirective } from '../../../shared/directive/spinner.directive';
     ReactiveFormsModule,
     SvgIconComponent,
     SpinnerDirective,
+    NgClass,
   ],
   templateUrl: './switch-ports.component.html',
   styleUrl: './switch-ports.component.css',
@@ -21,6 +24,7 @@ export class SwitchPortsComponent implements OnInit {
   @Input('id') switchId!: number;
 
   private switchService = inject(SwitchesService);
+  private toastr = inject(ToastrService);
 
   sw: any;
   portStatus: any[] = [];
@@ -28,6 +32,7 @@ export class SwitchPortsComponent implements OnInit {
   loadingSave: undefined | number = undefined;
   loadingPortStatus = false;
   loadingPortAlias = false;
+  loadingTogglePortName: undefined | string = undefined;
 
   form = new FormGroup({
     alias: new FormControl(''),
@@ -85,7 +90,25 @@ export class SwitchPortsComponent implements OnInit {
     }
   }
 
-  async togglePort(port: number) {
-    console.log(port);
+  async togglePort(portName: string) {
+    try {
+      const portStatus = this.portStatus.find((p) => p.portName === portName);
+      let toggle =
+        portStatus.adminStatus.toLowerCase() === 'up' ? 'down' : 'up';
+      this.loadingTogglePortName = portName;
+      const portStatusResponse = await this.switchService.togglePort(
+        this.switchId,
+        portName,
+        toggle
+      );
+      console.log(portStatus);
+      this.portStatus = this.portStatus.map((p) =>
+        p.portName === portName ? portStatusResponse : p
+      );
+    } catch (error: any) {
+      this.toastr.error(error);
+    } finally {
+      this.loadingTogglePortName = undefined;
+    }
   }
 }

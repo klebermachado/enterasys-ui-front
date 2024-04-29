@@ -1,32 +1,46 @@
 <div class="flex gap-3 flex-wrap bg-secondary-50 p-4 rounded-md border">
 	<div class="w-full mb-6 flex justify-between">
 		<div>
-			<h2 class="text-lg font-bold">{{sw?.name}} ({{sw?.ip}} - {{sw?.hostname}})</h2>
-			<p class="text-xs text-gray-600">{{sw?.location}}</p>
+			<h2 class="text-lg font-bold">
+				{{ sw?.name }} ({{ sw?.ip }} - {{ sw?.hostname }})
+			</h2>
+			<p class="text-xs text-gray-600">{{ sw?.location }}</p>
 		</div>
 		<div class="flex items-center gap-x-2 hover:text-blue-800 hover:underline cursor-pointer"
-			(click)="updatePortStatus()">
+				 (click)="updatePortStatus()">
 			<span class="pr-0" [appSpinner]="loadingPortStatus" loadingText="looking for update">Última atualização</span>
 			<svg-icon src="assets/icons/history.svg" svgClass="w-4 fill-current"></svg-icon>
 		</div>
 	</div>
 	@for(port of portStatus; track $index) {
 	<div class="h-14 w-16 border relative mt-4 mb-6 bg-white">
-		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">{{port.portName}}</p>
+		<p class="absolute text-gray-500 text-xs -top-4 left-0 right-0 text-center">
+			{{ port.portName }}
+		</p>
 		@if (port.operationStatus === 'Up') {
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 left-0 absolute"></div>
 		<div class="h-2 w-2 bg-[#69dd4c] top-0 right-0 absolute animate-background"></div>
 		} @else {
 		<div class="h-2 w-2 bg-[#c0c0c0] top-0 left-0 absolute"></div>
-		<div class="h-2 w-2 bg-[#c0c0c0] top-0 right-0 absolute"></div>}
+		<div class="h-2 w-2 bg-[#c0c0c0] top-0 right-0 absolute"></div>
+		}
 		<div class="flex justify-center gap-1 absolute bottom-0 left-0 right-0">
 			@for(contact of [1,1,1,1,1,1,1,1]; track $index) {
 			<div class="w-[1px] bg-yellow-400 h-4"></div>
 			}
 		</div>
 		<button type="button" (click)="togglePort(port.portName)"
-			class="-bottom-6 left-0 right-0 absolute text-center text-green-600 font-bold uppercase">{{port.adminStatus}}</button>
-		<p class="w-full text-center text-gray-500 mt-3 text-xs">{{port.speed}}</p>
+						class="-bottom-6 left-0 right-0 absolute text-center text-green-600 font-bold uppercase">
+			<span>
+				<span [appSpinner]="loadingTogglePortName === port.portName" [loadingText]="" class="px-0"></span>
+				<span [ngClass]="{ 'text-transparent': loadingTogglePortName === port.portName }">
+					{{port.adminStatus}}
+				</span>
+			</span>
+		</button>
+		<p class="w-full text-center text-gray-500 mt-3 text-xs">
+			{{ port.speed }}
+		</p>
 	</div>
 	}
 </div>
@@ -34,10 +48,12 @@
 	<div class="w-full mb-6 flex justify-between">
 		<div>
 			<h2 class="text-lg font-bold">Details</h2>
-			<p class="text-xs text-gray-600">Sala de telecomunicações do Pavilhão de aulas</p>
+			<p class="text-xs text-gray-600">
+				Sala de telecomunicações do Pavilhão de aulas
+			</p>
 		</div>
 		<div class="flex items-center gap-x-2 hover:text-blue-800 hover:underline cursor-pointer"
-			(click)="updatePortAlias()">
+				 (click)="updatePortAlias()">
 			<span class="pr-0" [appSpinner]="loadingPortAlias" loadingText="looking for update">Última atualização</span>
 			<svg-icon src="assets/icons/history.svg" svgClass="w-4 fill-current"></svg-icon>
 		</div>
@@ -47,55 +63,47 @@
 			<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 				<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 					<tr>
-						<th scope="col" class="px-6 py-3">
-							Port name
-						</th>
-						<th scope="col" class="px-6 py-3">
-							Binded to
-						</th>
-						<th scope="col" class="px-6 py-3">
-							Description
-						</th>
-						<th scope="col" class="px-6 py-3">
-							Actions
-						</th>
+						<th scope="col" class="px-6 py-3">Port name</th>
+						<th scope="col" class="px-6 py-3">Binded to</th>
+						<th scope="col" class="px-6 py-3">Description</th>
+						<th scope="col" class="px-6 py-3">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					@for(port of sw?.ports; track $index) {
 					<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 						<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-							{{port.portName}}
+							{{ port.portName }}
 						</th>
 						<td class="px-6 py-4">
 							@if (editId === port.id) {
 							<input type="text" formControlName="alias" id="switch-name" name="name"
-								aria-describedby="helper-text-explanation"
-								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								[value]="port.alias">
+										 aria-describedby="helper-text-explanation"
+										 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										 [value]="port.alias" />
 							} @else {
-							<span>{{port.alias}}</span>
+							<span>{{ port.alias }}</span>
 							}
 						</td>
 						<td class="px-6 py-4">
 							@if (editId === port.id) {
 							<input type="text" formControlName="description" id="switch-name" name="name"
-								aria-describedby="helper-text-explanation"
-								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								[value]="port.description">
+										 aria-describedby="helper-text-explanation"
+										 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										 [value]="port.description" />
 							} @else {
-							<span>{{port.description}}</span>
+							<span>{{ port.description }}</span>
 							}
 						</td>
 						<td class="px-6 py-4">
 							@if (editId === port.id) {
 							<button type="button" (click)="update(port.id)"
-								class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+											class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
 								<app-spinner [loading]="loadingSave === port.id">Save</app-spinner>
 							</button>
 							} @else {
 							<button type="button" (click)="editPort(port.id)"
-								class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+											class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
 								Edit
 							</button>
 							}

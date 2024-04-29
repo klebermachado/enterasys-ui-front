@@ -70,4 +70,23 @@ export class SwitchesService {
         });
     });
   }
+
+  async togglePort(swId: number, portName: string, toggle: any) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(
+          `${environment.apiUrl}/switches/${swId}/ports/${portName}/toggle`,
+          { toggle }
+        )
+        .pipe(
+          catchError((error: any) => {
+            reject('unable to modify port status');
+            return throwError(() => new Error('unable to modify port status'));
+          })
+        )
+        .subscribe((response) => {
+          resolve(response);
+        });
+    });
+  }
 }
