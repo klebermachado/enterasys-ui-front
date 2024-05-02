@@ -90,5 +90,19 @@ export class SwitchesService {
     });
   }
 
-  async syncPorts(switchId: number) {}
+  async syncPorts(switchId: number) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(`${environment.apiUrl}/switches/${switchId}/ports/sync`, {})
+        .pipe(
+          catchError((error: any) => {
+            reject('unable to sync ports');
+            return throwError(() => new Error('unable to sync ports'));
+          })
+        )
+        .subscribe((response) => {
+          resolve(response);
+        });
+    });
+  }
 }

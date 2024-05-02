@@ -86,7 +86,7 @@ export class SwitchPortsComponent implements OnInit {
   async updatePortAlias() {
     try {
       this.loadingPortAlias = true;
-      this.sw = await this.switchService.syncPorts(this.switchId);
+      this.sw.ports = await this.switchService.syncPorts(this.switchId);
     } finally {
       this.loadingPortAlias = false;
     }
