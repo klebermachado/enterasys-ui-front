@@ -1,9 +1,9 @@
 <div>
-	<p>Last update: <span>{{lastUpdate}}</span></p>
+	<p>Last update: <span>{{lastUpdate | date : "yyyy-MM-dd HH:mm"}}</span></p>
 </div>
 <div class="mt-8">
 	<button type="button" (click)="get()"
-					[appSpinner]="false" loadingText="Getting..."
+					[appSpinner]="loadingSync" loadingText="Getting..."
 					class="text-white relative bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 		Sync config
 	</button>
@@ -11,7 +11,7 @@
 </div>
 <div class="mt-12">
 	<button type="button" (click)="recover()"
-					[appSpinner]="false" loadingText="Recovering..."
+					[appSpinner]="loadingRecover" loadingText="Recovering..."
 					class="text-white relative bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 		Recovery switch
 	</button>

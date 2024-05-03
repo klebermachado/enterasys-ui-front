@@ -122,4 +122,21 @@ export class SwitchesService {
         });
     });
   }
+
+  async getConfigAndSync(switchId: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(`${environment.apiUrl}/switches/${switchId}/configAndSync`, {})
+        .pipe(
+          catchError((error: any) => {
+            console.log(error);
+            reject('unable to get config switch');
+            return throwError(() => new Error('unable to get config switch'));
+          })
+        )
+        .subscribe((response: any) => {
+          resolve(response);
+        });
+    });
+  }
 }
