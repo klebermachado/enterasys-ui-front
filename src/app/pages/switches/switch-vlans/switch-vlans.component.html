@@ -43,9 +43,9 @@
 			<label>VLAN port</label>
 			<select name="vlan-port[{{port}}]"
 							class="bg-white text-xs inline-block border max-w-64 border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-				<option selected>Choose a VLAN Port</option>
+				<option>Choose a VLAN Port</option>
 				@for(vlan of vlans(); track vlan.id) {
-				<option [value]="vlan.id">{{vlan.tag}} - {{vlan.description}}</option>
+				<option [value]="vlan.id" [selected]="vlan.tag === port.vlan.tag">{{vlan.tag}} - {{vlan.description}}</option>
 				}
 			</select>
 		</div>

@@ -20,7 +20,7 @@ export class SwitchVlansComponent {
       alias: 'PPAP1',
       description: 'Rádio convivência',
       isLink: false,
-      vlan: { id: 1, tag: '1120', description: 'Administrativo' },
+      vlan: { id: 1, tag: '22', description: 'Administrativo' },
       egress: [
         { id: 1, tag: '22', description: 'Administrativo' },
         { id: 2, tag: '234', description: 'Público' },
@@ -33,7 +33,7 @@ export class SwitchVlansComponent {
       alias: 'PPAP2',
       description: 'Rádio convivência, 3º andar',
       isLink: true,
-      vlan: { id: 1, tag: '1120', description: 'Administrativo' },
+      vlan: { id: 1, tag: '2323', description: 'Administrativo' },
       egress: [
         { id: 1, tag: '22', description: 'Administrativo' },
         { id: 2, tag: '234', description: 'Público' },
