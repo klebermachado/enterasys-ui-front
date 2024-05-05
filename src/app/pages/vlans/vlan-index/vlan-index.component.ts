@@ -5,7 +5,6 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { generateRandomID } from '../../../helpers/utils';
 import { VlansService } from '../../../services/vlans.service';
 import {
   FormControl,
@@ -15,6 +14,7 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerDirective } from '../../../shared/directive/spinner.directive';
+import { generateRandomID } from '../../../shared/utils/helpers';
 
 @Component({
   selector: 'app-vlan-index',

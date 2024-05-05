@@ -15,7 +15,7 @@ export class VlansService {
   getVlans(): Promise<any[]> {
     return new Promise((resolve) => {
       this.http.get(`${environment.apiUrl}/vlans`).subscribe((data: any) => {
-        this.vlans.set(data);
+        this.vlans.set(data.sort((a: any, b: any) => a.tag - b.tag));
         resolve(data);
       });
     });
