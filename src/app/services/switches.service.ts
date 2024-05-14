@@ -149,4 +149,20 @@ export class SwitchesService {
         });
     });
   }
+
+  async getVlans(switchId: number) {
+    return new Promise((resolve, reject) => {
+      return this.http
+        .get(`${environment.apiUrl}/switches/${switchId}/vlans`)
+        .pipe(
+          catchError((error: any) => {
+            reject('unable to get vlans to switch');
+            return throwError(() => new Error('unable to get vlans to switch'));
+          })
+        )
+        .subscribe((response) => {
+          resolve(response);
+        });
+    });
+  }
 }

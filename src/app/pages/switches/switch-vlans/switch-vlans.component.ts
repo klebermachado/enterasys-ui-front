@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { VlansService } from '../../../services/vlans.service';
 import { generateRandomID } from '../../../shared/utils/helpers';
+import { SwitchesService } from '../../../services/switches.service';
 
 @Component({
   selector: 'app-switch-vlans',
@@ -9,8 +10,11 @@ import { generateRandomID } from '../../../shared/utils/helpers';
   templateUrl: './switch-vlans.component.html',
   styleUrl: './switch-vlans.component.css',
 })
-export class SwitchVlansComponent {
+export class SwitchVlansComponent implements OnInit {
+  @Input('id') switchId!: number;
+
   private vlanService = inject(VlansService);
+  private switchService = inject(SwitchesService);
   vlans = this.vlanService.vlans;
 
   ports = [
@@ -41,6 +45,11 @@ export class SwitchVlansComponent {
       ],
     },
   ];
+
+  async ngOnInit(): Promise<void> {
+    const vlans = await this.switchService.getVlans(this.switchId);
+    console.log(vlans);
+  }
 
   addEgress(portId: number) {
     const index = this.ports.findIndex((port) => port.id === portId);
