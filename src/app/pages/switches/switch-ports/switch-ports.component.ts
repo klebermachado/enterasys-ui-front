@@ -42,9 +42,9 @@ export class SwitchPortsComponent implements OnInit {
   editId?: number;
 
   async ngOnInit(): Promise<void> {
-    this.switchService.find(this.switchId).then((sw) => {
-      this.sw = sw;
-    });
+    this.sw = await this.switchService.find(this.switchId);
+    this.portStatus = this.sw.ports;
+
     this.switchService.showPortStatus(this.switchId).then((portStatus) => {
       this.portStatus = portStatus;
     });

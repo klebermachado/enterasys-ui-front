@@ -71,6 +71,16 @@ export class SwitchesService {
     });
   }
 
+  async showPortAlias(switchId: number): Promise<any[]> {
+    return new Promise((resolve) => {
+      this.http
+        .get(`${environment.apiUrl}/switches/${switchId}/ports/alias`)
+        .subscribe((response) => {
+          resolve(response as any[]);
+        });
+    });
+  }
+
   async togglePort(swId: number, portName: string, toggle: any) {
     return new Promise((resolve, reject) => {
       this.http

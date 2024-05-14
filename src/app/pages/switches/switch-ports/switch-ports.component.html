@@ -31,9 +31,10 @@
 			}
 		</div>
 		<button type="button" (click)="togglePort(port.portName)"
-						class="-bottom-6 left-0 right-0 absolute text-center text-green-600 font-bold uppercase">
+						class="-bottom-6 left-0 right-0 absolute text-center text-green-600 font-bold uppercase"
+						[class]="{'!text-orange-500': port.adminStatus === 'Down'}">
 			<span>
-				<span [appSpinner]="loadingTogglePortName === port.portName" [loadingText]="" class="px-0"></span>
+				<span [appSpinner]="loadingTogglePortName === port.portName" [loadingText]="" class="!px-0"></span>
 				<span [ngClass]="{ 'text-transparent': loadingTogglePortName === port.portName }">
 					{{port.adminStatus}}
 				</span>
